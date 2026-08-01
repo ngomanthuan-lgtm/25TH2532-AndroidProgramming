@@ -4,104 +4,56 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Khai báo các điều khiển
-    EditText editTextSo1, editTextSo2, editTextKQ;
-    Button nutCong, nutTru, nutNhan, nutChia;
+    // Khai báo các biến lưu trữ điều khiển theo đúng sơ đồ bài giảng
+    EditText edtA, edtB, edtKQ;
+    Button btnCong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 1. Ánh xạ các điều khiển từ XML
+        // 1. Tìm đúng điều khiển cần xử lý thông qua findViewById
         TimDieuKhien();
-
-        // 2. Đăng ký Bộ lắng nghe sự kiện ẨN DANH (Inline Anonymous Listener) cho từng nút bấm
-        nutCong.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                XULY_CONG();
-            }
-        });
-
-        nutTru.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                XULY_TRU();
-            }
-        });
-
-        nutNhan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                XULY_NHAN();
-            }
-        });
-
-        nutChia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                XULY_CHIA();
-            }
-        });
     }
 
-    // Hàm ánh xạ điều khiển
     void TimDieuKhien() {
-        editTextSo1 = findViewById(R.id.edtSo1);
-        editTextSo2 = findViewById(R.id.edtSo2);
-        editTextKQ = findViewById(R.id.edtKetQua);
-        nutCong = findViewById(R.id.btnCong);
-        nutTru = findViewById(R.id.btnTru);
-        nutNhan = findViewById(R.id.btnNhan);
-        nutChia = findViewById(R.id.btnChia);
+        edtA = findViewById(R.id.edtA);
+        edtB = findViewById(R.id.edtB);
+        btnCong = findViewById(R.id.btnCong);
+        edtKQ = findViewById(R.id.edtKQ);
     }
 
-    // Hàm xử lý phép Cộng
-    void XULY_CONG() {
-        String soThu1 = editTextSo1.getText().toString();
-        String soThu2 = editTextSo2.getText().toString();
-        float soA = Float.parseFloat(soThu1);
-        float soB = Float.parseFloat(soThu2);
-        float Tong = soA + soB;
-        editTextKQ.setText(String.valueOf(Tong));
-    }
+    // 2. Hàm thực hiện tính toán khi người dùng nhấn (click) vào nút TÍNH TỔNG
+    public void XuLyTinhTong(View v) {
+        // Lấy dữ liệu từ giao diện
+        String strA = edtA.getText().toString().trim();
+        String strB = edtB.getText().toString().trim();
 
-    // Hàm xử lý phép Trừ
-    void XULY_TRU() {
-        String soThu1 = editTextSo1.getText().toString();
-        String soThu2 = editTextSo2.getText().toString();
-        float soA = Float.parseFloat(soThu1);
-        float soB = Float.parseFloat(soThu2);
-        float Hieu = soA - soB;
-        editTextKQ.setText(String.valueOf(Hieu));
-    }
+        if (strA.isEmpty() || strB.isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập đầy đủ 2 số a và b!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-    // Hàm xử lý phép Nhân
-    void XULY_NHAN() {
-        String soThu1 = editTextSo1.getText().toString();
-        String soThu2 = editTextSo2.getText().toString();
-        float soA = Float.parseFloat(soThu1);
-        float soB = Float.parseFloat(soThu2);
-        float Tich = soA * soB;
-        editTextKQ.setText(String.valueOf(Tich));
-    }
+        try {
+            // Chuyển dữ liệu chuỗi sang số để tính
+            double a = Double.parseDouble(strA);
+            double b = Double.parseDouble(strB);
+            double tong = a + b;
 
-    // Hàm xử lý phép Chia
-    void XULY_CHIA() {
-        String soThu1 = editTextSo1.getText().toString();
-        String soThu2 = editTextSo2.getText().toString();
-        float soA = Float.parseFloat(soThu1);
-        float soB = Float.parseFloat(soThu2);
-        if (soB != 0) {
-            float Thuong = soA / soB;
-            editTextKQ.setText(String.valueOf(Thuong));
-        } else {
-            editTextKQ.setText("Lỗi chia 0");
+            // Đưa dữ liệu ra ô giao diện kết quả
+            if (tong == (long) tong) {
+                edtKQ.setText(String.valueOf((long) tong));
+            } else {
+                edtKQ.setText(String.valueOf(tong));
+            }
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Dữ liệu nhập phải là số hợp lệ!", Toast.LENGTH_SHORT).show();
         }
     }
 }
