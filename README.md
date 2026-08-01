@@ -5,7 +5,8 @@
 2. Bài TH2_1: Thiết kế giao diện cho Ứng dụng tính tổng 2 số
 - File giao diện XML: `app/src/main/res/layout/activity_main.xml`
 - File xử lý logic Java: `app/src/main/java/MainActivity.java`
-####THỰC HÀNH 2
+####
+THỰC HÀNH 2
 3. Bài TH2_2: Hoàn thiện Ứng dụng tính tổng 2 số (Sử dụng thuộc tính android:onClick)
 4. Bài TH3: Bố cục LinearLayout (LinearLayout01) - Thiết kế 3 nút bấm thẳng hàng
 5. Bài TH4 (phần 1): LinearLayout Ứng dụng Các phép toán số học (+, -, *, /)
