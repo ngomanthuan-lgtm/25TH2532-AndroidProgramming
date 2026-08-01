@@ -15,3 +15,4 @@
 5. Bài TH4 (phần 1): LinearLayout Ứng dụng Các phép toán số học (+, -, *, /)
 6. Bài TH4 (Phần 2): Nghe và Xử lý sự kiện OnClick XML tính toán 4 phép tính (+, -, *, /)
 7. Bài TH5: Xử lý sự kiện 1 (Sử dụng bộ lắng nghe ẩn danh Inline Anonymous Listener)
+8. Bài TH6: Xử lý sự kiện Tính tổng 2 số (Code lắng nghe và xử lý OnClick với findViewById)
