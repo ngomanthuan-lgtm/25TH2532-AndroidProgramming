@@ -18,3 +18,4 @@
 8. Bài TH6: Xử lý sự kiện Tính tổng 2 số (Code lắng nghe và xử lý OnClick với findViewById)
 9. Bài TH7: Làm việc với điều khiển ListView (Nạp danh sách quốc gia bằng ArrayAdapter)
 10. Bài TH8: TuyChinhLV (Custom ListView kế thừa BaseAdapter và ViewHolder)
+11. Bài TH9: Làm việc với điều khiển RecyclerView (Sử dụng RecyclerView.Adapter, ViewHolder và LayoutManager)
