@@ -5,109 +5,115 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    ListView listView;
+    // 1. Khai báo các biến truy cập RecyclerView
+    ItemLandScapeAdapter adapter;
+    ArrayList<LandScape> landScapeList;
+    RecyclerView recyclerViewLand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listView = findViewById(R.id.listView);
+        // 2. Chuẩn bị dữ liệu danh sách Cảnh đẹp LandScape
+        landScapeList = getDataForRecycler();
 
-        // Step 1: Chuẩn bị nguồn dữ liệu danh sách đối tượng Country (Slide 45)
-        List<Country> listData = new ArrayList<>();
-        listData.add(new Country("Vietnam", "vn", 98000000));
-        listData.add(new Country("United States", "us", 330000000));
-        listData.add(new Country("Russia", "ru", 142000000));
-        listData.add(new Country("Japan", "jp", 125000000));
-        listData.add(new Country("South Korea", "kr", 51000000));
+        // 3. Tìm điều khiển RecyclerView
+        recyclerViewLand = findViewById(R.id.recyclerViewLand);
 
-        // Step 2: Khởi tạo CustomListAdapter và nạp vào ListView (Slide 47 - 49)
-        CustomListAdapter adapter = new CustomListAdapter(this, listData);
-        listView.setAdapter(adapter);
+        // 4. Tạo LayoutManager đặt bố cục cho RecyclerView (LinearLayoutManager)
+        RecyclerView.LayoutManager layoutLinear = new LinearLayoutManager(this);
+        recyclerViewLand.setLayoutManager(layoutLinear);
 
-        // Step 3: Xử lý sự kiện click từng dòng trên Custom ListView (Slide 43)
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Country country = listData.get(position);
-                Toast.makeText(MainActivity.this, "Bạn chọn: " + country.getCountryName() + " - Dân số: " + country.getPopulation(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        // 5. Tạo adapter gắn với nguồn dữ liệu
+        adapter = new ItemLandScapeAdapter(this, landScapeList);
+
+        // 6. Gắn adapter với RecyclerView
+        recyclerViewLand.setAdapter(adapter);
     }
 
-    // Step 1: Lớp cấu trúc dữ liệu Country (Slide 46)
-    static class Country {
-        private String countryName;
-        private String flagName;
-        private int population;
+    // Hàm khởi tạo danh sách địa danh Cảnh đẹp theo bài giảng
+    private ArrayList<LandScape> getDataForRecycler() {
+        ArrayList<LandScape> listData = new ArrayList<>();
+        listData.add(new LandScape("Flag Tower of Ha Noi", "flag_tower_of_hanoi"));
+        listData.add(new LandScape("Eiffel Tower", "eiffel"));
+        listData.add(new LandScape("Buckingham Palace", "buckingham"));
+        listData.add(new LandScape("Statue of Liberty", "statue_of_liberty"));
+        listData.add(new LandScape("Fuji Mountain", "fuji"));
+        return listData;
+    }
 
-        public Country(String countryName, String flagName, int population) {
-            this.countryName = countryName;
-            this.flagName = flagName;
-            this.population = population;
+    // --- LỚP MODEL CẤU TRÚC DỮ LIỆU LANDSCAPE (Slide 7) ---
+    static class LandScape {
+        private String landscapeName;
+        private String landscapeImage;
+
+        public LandScape(String landscapeName, String landscapeImage) {
+            this.landscapeName = landscapeName;
+            this.landscapeImage = landscapeImage;
         }
 
-        public String getCountryName() { return countryName; }
-        public String getFlagName() { return flagName; }
-        public int getPopulation() { return population; }
+        public String getLandscapeName() { return landscapeName; }
+        public String getLandscapeImage() { return landscapeImage; }
     }
 
-    // Step 2: Lớp CustomListAdapter kế thừa BaseAdapter (Slide 47-50)
-    static class CustomListAdapter extends BaseAdapter {
-        private List<Country> listData;
-        private LayoutInflater layoutInflater;
+    // --- LỚP ADAPTER VÀ VIEWHOLDER CHO RECYCLERVIEW (Slide 8 - 18) ---
+    static class ItemLandScapeAdapter extends RecyclerView.Adapter<ItemLandScapeAdapter.ItemLandScapeViewHolder> {
+
         private Context context;
+        private ArrayList<LandScape> datas;
 
-        public CustomListAdapter(Context aContext, List<Country> listData) {
-            this.context = aContext;
-            this.listData = listData;
-            this.layoutInflater = LayoutInflater.from(aContext);
+        public ItemLandScapeAdapter(Context _context, ArrayList<LandScape> _datas) {
+            this.context = _context;
+            this.datas = _datas;
+        }
+
+        @NonNull
+        @Override
+        public ItemLandScapeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(context);
+            View viewItem = layoutInflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+            return new ItemLandScapeViewHolder(viewItem);
         }
 
         @Override
-        public int getCount() { return listData.size(); }
+        public void onBindViewHolder(@NonNull ItemLandScapeViewHolder holder, int position) {
+            LandScape land = datas.get(position);
+            holder.textViewLandName.setText(land.getLandscapeName());
+        }
 
         @Override
-        public Object getItem(int position) { return listData.get(position); }
+        public int getItemCount() {
+            return datas.size();
+        }
 
-        @Override
-        public long getItemId(int position) { return position; }
+        // Lớp ViewHolder quản lý từng hàng và xử lý sự kiện OnClick (Slide 17-18)
+        class ItemLandScapeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
-            if (convertView == null) {
-                convertView = layoutInflater.inflate(android.R.layout.simple_list_item_2, null);
-                holder = new ViewHolder();
-                holder.countryNameView = convertView.findViewById(android.R.id.text1);
-                holder.populationView = convertView.findViewById(android.R.id.text2);
-                convertView.setTag(holder);
-            } else {
-                holder = (ViewHolder) convertView.getTag();
+            TextView textViewLandName;
+
+            public ItemLandScapeViewHolder(@NonNull View itemView) {
+                super(itemView);
+                textViewLandName = itemView.findViewById(android.R.id.text1);
+                itemView.setOnClickListener(this);
             }
 
-            Country country = this.listData.get(position);
-            holder.countryNameView.setText(country.getCountryName());
-            holder.populationView.setText("Dân số: " + country.getPopulation() + " người");
-            return convertView;
-        }
-
-        // Lớp ViewHolder quản lý các View (Slide 50)
-        static class ViewHolder {
-            TextView countryNameView;
-            TextView populationView;
+            @Override
+            public void onClick(View v) {
+                int clickedPosition = getAdapterPosition();
+                LandScape land = datas.get(clickedPosition);
+                Toast.makeText(v.getContext(), "Bạn vừa chọn: " + land.getLandscapeName(), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
