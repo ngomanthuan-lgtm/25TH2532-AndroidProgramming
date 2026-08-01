@@ -19,3 +19,4 @@
 9. Bài TH7: Làm việc với điều khiển ListView (Nạp danh sách quốc gia bằng ArrayAdapter)
 10. Bài TH8: TuyChinhLV (Custom ListView kế thừa BaseAdapter và ViewHolder)
 11. Bài TH9: Làm việc với điều khiển RecyclerView (Sử dụng RecyclerView.Adapter, ViewHolder và LayoutManager)
+12. Bài TH10: Ví dụ Intent đơn giản (Sử dụng Explicit Intent chuyển qua lại giữa các màn hình)
