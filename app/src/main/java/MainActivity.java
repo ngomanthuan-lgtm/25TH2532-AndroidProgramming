@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Khai báo các điều khiển cơ bản
+    // Khai báo các điều khiển
     EditText editTextSo1, editTextSo2, editTextKQ;
     Button nutCong, nutTru, nutNhan, nutChia;
 
@@ -17,11 +17,40 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Ánh xạ các điều khiển
+        // 1. Ánh xạ các điều khiển từ XML
         TimDieuKhien();
+
+        // 2. Đăng ký Bộ lắng nghe sự kiện ẨN DANH (Inline Anonymous Listener) cho từng nút bấm
+        nutCong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                XULY_CONG();
+            }
+        });
+
+        nutTru.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                XULY_TRU();
+            }
+        });
+
+        nutNhan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                XULY_NHAN();
+            }
+        });
+
+        nutChia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                XULY_CHIA();
+            }
+        });
     }
 
-    // Hàm tìm và ánh xạ các điều khiển từ file XML
+    // Hàm ánh xạ điều khiển
     void TimDieuKhien() {
         editTextSo1 = findViewById(R.id.edtSo1);
         editTextSo2 = findViewById(R.id.edtSo2);
@@ -32,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
         nutChia = findViewById(R.id.btnChia);
     }
 
-    // b1. Xử lý sự kiện Phép Cộng (+)
-    public void XuLyCong(View v) {
+    // Hàm xử lý phép Cộng
+    void XULY_CONG() {
         String soThu1 = editTextSo1.getText().toString();
         String soThu2 = editTextSo2.getText().toString();
         float soA = Float.parseFloat(soThu1);
@@ -42,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
         editTextKQ.setText(String.valueOf(Tong));
     }
 
-    // b2. Xử lý sự kiện Phép Trừ (-)
-    public void XuLyTru(View v) {
+    // Hàm xử lý phép Trừ
+    void XULY_TRU() {
         String soThu1 = editTextSo1.getText().toString();
         String soThu2 = editTextSo2.getText().toString();
         float soA = Float.parseFloat(soThu1);
@@ -52,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
         editTextKQ.setText(String.valueOf(Hieu));
     }
 
-    // b3. Xử lý sự kiện Phép Nhân (*)
-    public void XuLyNhan(View v) {
+    // Hàm xử lý phép Nhân
+    void XULY_NHAN() {
         String soThu1 = editTextSo1.getText().toString();
         String soThu2 = editTextSo2.getText().toString();
         float soA = Float.parseFloat(soThu1);
@@ -62,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
         editTextKQ.setText(String.valueOf(Tich));
     }
 
-    // b4. Xử lý sự kiện Phép Chia (/)
-    public void XuLyChia(View v) {
+    // Hàm xử lý phép Chia
+    void XULY_CHIA() {
         String soThu1 = editTextSo1.getText().toString();
         String soThu2 = editTextSo2.getText().toString();
         float soA = Float.parseFloat(soThu1);
