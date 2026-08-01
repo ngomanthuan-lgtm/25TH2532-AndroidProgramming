@@ -2,88 +2,77 @@ package com.example.a25th2532_androidprogramming;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText edtSo1, edtSo2, edtKetQua;
+    // Khai báo các điều khiển cơ bản
+    EditText editTextSo1, editTextSo2, editTextKQ;
+    Button nutCong, nutTru, nutNhan, nutChia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Ánh xạ View từ XML
-        edtSo1 = findViewById(R.id.edtSo1);
-        edtSo2 = findViewById(R.id.edtSo2);
-        edtKetQua = findViewById(R.id.edtKetQua);
+        // Ánh xạ các điều khiển
+        TimDieuKhien();
     }
 
-    // Hàm hỗ trợ lấy và kiểm tra dữ liệu 2 số nhập vào
-    private boolean layDuLieu(double[] numbers) {
-        String str1 = edtSo1.getText().toString().trim();
-        String str2 = edtSo2.getText().toString().trim();
-
-        if (str1.isEmpty() || str2.isEmpty()) {
-            Toast.makeText(this, "Vui lòng nhập đầy đủ cả 2 số!", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        try {
-            numbers[0] = Double.parseDouble(str1);
-            numbers[1] = Double.parseDouble(str2);
-            return true;
-        } catch (NumberFormatException e) {
-            Toast.makeText(this, "Dữ liệu nhập vào phải là số!", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+    // Hàm tìm và ánh xạ các điều khiển từ file XML
+    void TimDieuKhien() {
+        editTextSo1 = findViewById(R.id.edtSo1);
+        editTextSo2 = findViewById(R.id.edtSo2);
+        editTextKQ = findViewById(R.id.edtKetQua);
+        nutCong = findViewById(R.id.btnCong);
+        nutTru = findViewById(R.id.btnTru);
+        nutNhan = findViewById(R.id.btnNhan);
+        nutChia = findViewById(R.id.btnChia);
     }
 
-    // Xử lý Phép Cộng (+)
+    // b1. Xử lý sự kiện Phép Cộng (+)
     public void XuLyCong(View v) {
-        double[] num = new double[2];
-        if (layDuLieu(num)) {
-            hienKetQua(num[0] + num[1]);
-        }
+        String soThu1 = editTextSo1.getText().toString();
+        String soThu2 = editTextSo2.getText().toString();
+        float soA = Float.parseFloat(soThu1);
+        float soB = Float.parseFloat(soThu2);
+        float Tong = soA + soB;
+        editTextKQ.setText(String.valueOf(Tong));
     }
 
-    // Xử lý Phép Trừ (-)
+    // b2. Xử lý sự kiện Phép Trừ (-)
     public void XuLyTru(View v) {
-        double[] num = new double[2];
-        if (layDuLieu(num)) {
-            hienKetQua(num[0] - num[1]);
-        }
+        String soThu1 = editTextSo1.getText().toString();
+        String soThu2 = editTextSo2.getText().toString();
+        float soA = Float.parseFloat(soThu1);
+        float soB = Float.parseFloat(soThu2);
+        float Hieu = soA - soB;
+        editTextKQ.setText(String.valueOf(Hieu));
     }
 
-    // Xử lý Phép Nhân (*)
+    // b3. Xử lý sự kiện Phép Nhân (*)
     public void XuLyNhan(View v) {
-        double[] num = new double[2];
-        if (layDuLieu(num)) {
-            hienKetQua(num[0] * num[1]);
-        }
+        String soThu1 = editTextSo1.getText().toString();
+        String soThu2 = editTextSo2.getText().toString();
+        float soA = Float.parseFloat(soThu1);
+        float soB = Float.parseFloat(soThu2);
+        float Tich = soA * soB;
+        editTextKQ.setText(String.valueOf(Tich));
     }
 
-    // Xử lý Phép Chia (/)
+    // b4. Xử lý sự kiện Phép Chia (/)
     public void XuLyChia(View v) {
-        double[] num = new double[2];
-        if (layDuLieu(num)) {
-            if (num[1] == 0) {
-                Toast.makeText(this, "Không thể chia cho số 0!", Toast.LENGTH_SHORT).show();
-                edtKetQua.setText("Lỗi chia cho 0");
-            } else {
-                hienKetQua(num[0] / num[1]);
-            }
-        }
-    }
-
-    // Hàm hiển thị kết quả lên ô EditText kết quả
-    private void hienKetQua(double kq) {
-        if (kq == (long) kq) {
-            edtKetQua.setText(String.valueOf((long) kq));
+        String soThu1 = editTextSo1.getText().toString();
+        String soThu2 = editTextSo2.getText().toString();
+        float soA = Float.parseFloat(soThu1);
+        float soB = Float.parseFloat(soThu2);
+        if (soB != 0) {
+            float Thuong = soA / soB;
+            editTextKQ.setText(String.valueOf(Thuong));
         } else {
-            edtKetQua.setText(String.valueOf(kq));
+            editTextKQ.setText("Lỗi chia 0");
         }
     }
 }
