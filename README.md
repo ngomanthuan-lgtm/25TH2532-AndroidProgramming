@@ -10,4 +10,5 @@
 - File xử lý logic Java: `app/src/main/java/MainActivity.java`
 
 ####THỰC HÀNH 2
-### 3. Bài TH2_2: Hoàn thiện Ứng dụng tính tổng 2 số (Sử dụng thuộc tính android:onClick)
+### 3. Bài TH2_3: Hoàn thiện Ứng dụng tính tổng 2 số (Sử dụng thuộc tính android:onClick)
+4. Bài TH3: Bố cục LinearLayout (LinearLayout01) - Thiết kế 3 nút bấm thẳng hàng
