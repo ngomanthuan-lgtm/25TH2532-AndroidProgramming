@@ -8,5 +8,6 @@
 ### 2. Bài TH2_1: Thiết kế giao diện cho Ứng dụng tính tổng 2 số
 - File giao diện XML: `app/src/main/res/layout/activity_main.xml`
 - File xử lý logic Java: `app/src/main/java/MainActivity.java`
+
 ####THỰC HÀNH 2
 ### 3. Bài TH2_2: Hoàn thiện Ứng dụng tính tổng 2 số (Sử dụng thuộc tính android:onClick)
