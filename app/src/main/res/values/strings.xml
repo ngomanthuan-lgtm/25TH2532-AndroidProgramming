@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">25TH2532-AndroidProgramming</string>
+
+    <string-array name="quoc_gia_array">
+        <item>Việt Nam</item>
+        <item>Trung Quốc</item>
+        <item>Triều Tiên</item>
+        <item>Cuba</item>
+        <item>Hoa Kỳ</item>
+        <item>Nhật Bản</item>
+        <item>Hàn Quốc</item>
+        <item>Pháp</item>
+        <item>Đức</item>
+        <item>Anh</item>
+    </string-array>
+</resources>
